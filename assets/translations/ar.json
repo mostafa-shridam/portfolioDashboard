@@ -1,0 +1,23 @@
+{
+  "home": "الرئيسية",
+  "settings": "الإعدادات",
+  "projects": "المشاريع",
+  "skills": "المهارات",
+  "courses": "الدورات",
+  "experience": "الخبرة",
+  "education": "التعليم",
+  "light": "نهاري",
+  "dark": "ليلي",
+  "system": "النظام",
+  "languages": "اللغات",
+  "arabic": "العربية",
+  "english": "الإنجليزية",
+  "authWelcomeMessage": "أهلا بك في بورتفوليو \nيمكنك تسجيل الدخول بواسطة حساب جوجل",
+  "signInWithGoogle": "تسجيل الدخول بواسطة جوجل",
+  "confirmButton" : "موافق",
+  "cancelButton" : "الغاء",
+  "signOut" : "تسجيل الخروج",
+  "signOutMessage" : "هل أنت متأكد من تسجيل الخروج؟",
+  "deleteAccount" : "مسح الحساب",
+  "deleteAccountMessage" : "هل أنت متأكد من مسح الحساب؟"
+}

@@ -1,0 +1,38 @@
+Portfolio Models Structure
+==========================
+
+Before (1 large file):
+----------------------
+portfolio_model.dart (423 lines)
+  └── All 7 models in one file
+
+After (Clean separation):
+------------------------
+models/
+├── models.dart (8 lines) ...................... [BARREL FILE - Import this!]
+├── portfolio_model.dart (105 lines) ........... Main portfolio model
+├── social_link.dart (27 lines) ................ Social media links
+├── project.dart (73 lines) .................... Projects
+├── skill.dart (38 lines) ...................... Skills
+├── course.dart (57 lines) ..................... Courses
+├── experience.dart (65 lines) ................. Work experience
+└── education.dart (66 lines) .................. Education
+
+Benefits:
+---------
+✅ Each model has its own file
+✅ Easy to find and maintain
+✅ Better code organization
+✅ Follows single responsibility principle
+✅ Clean imports via barrel file
+
+Usage:
+------
+// Import all models at once
+import 'package:portfolio/models/models.dart';
+
+// Now use any model
+final portfolio = PortfolioModel(...);
+final project = Project(...);
+final skill = Skill(...);
+

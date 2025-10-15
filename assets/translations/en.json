@@ -1,0 +1,23 @@
+{
+  "home": "Home",
+  "settings": "Settings",
+  "projects": "Projects",
+  "skills": "Skills",
+  "courses": "Courses",
+  "experience": "Experience",
+  "education": "Education",
+  "light": "Light",
+  "dark": "Dark",
+  "system": "System",
+  "languages": "Languages",
+  "arabic": "Arabic",
+  "english": "English",
+  "authWelcomeMessage": "Welcome to Portfoliyo \nYou can sign in with your Google account",
+  "signInWithGoogle": "Sign in with Google",
+  "confirmButton": "Confirm",
+  "cancelButton": "Cancel",
+  "signOut": "Sign Out",
+  "signOutMessage": "Are you sure you want to sign out?",
+  "deleteAccount": "Delete Account",
+  "deleteAccountMessage": "Are you sure you want to delete your account?"
+}

@@ -1,0 +1,24 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:responsive_framework/responsive_framework.dart';
+import '../../../core/local_service/save_user.dart';
+import '../../../core/models/user_model.dart';
+import '../../settings/presentation/settings_page.dart';
+import 'platforms/home_mobile.dart';
+import 'platforms/home_web.dart';
+
+class HomePage extends ConsumerWidget {
+  const HomePage({super.key});
+  static const String routeName = '/home';
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final userData = ref.watch(saveUserProvider).getUserData() ?? UserModel();
+    final isDesktop = ResponsiveBreakpoints.of(context).isDesktop;
+    return Scaffold(
+      body: isDesktop
+          ? HomeWeb(userData: userData)
+          : HomeMobile(userData: userData),
+    );
+  }
+}
