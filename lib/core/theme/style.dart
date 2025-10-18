@@ -11,16 +11,16 @@ const Color accentColor = Color(0XFFFFB400);
 const Color infoColor = Color(0xFF007AFF);
 
 const MaterialColor greenSwatch = MaterialColor(0XFF000000, {
-  50: Color(0xFFF8FAFC),
-  100: Color(0xFFF1F5F9),
-  200: Color(0xFFE2E8F0),
-  300: Color(0xFFCBD5E1),
-  400: Color(0xFFC7FFDD),
-  500: Color(0xFF00253e),
-  600: Color(0xFF043D18),
-  700: Color(0xFF022D11),
-  800: Color(0xFF011D0B),
-  900: Color(0xFF001207),
+  50: Color(0xFFF3FAF6), // خلفية فاتحة جدًا فيها لمسة خضار
+  100: Color(0xFFE6F4EC),
+  200: Color(0xFFCDE8D8),
+  300: Color(0xFFAEDCC1),
+  400: Color(0xFF8ED0A9),
+  500: Color(0xFF1B653C), // اللون الأساسي
+  600: Color(0xFF175232),
+  700: Color(0xFF134028),
+  800: Color(0xFF0F2E1F),
+  900: Color(0xFF0A1F16),
 });
 
 ThemeData getLightTheme(String fontFamily, double fontSize) {
@@ -46,7 +46,7 @@ ThemeData getDarkTheme(String fontFamily, double fontSize) {
     fontFamily: fontFamily,
     baseColor: greenSwatch.shade50,
     backgroundColor: greenSwatch.shade900,
-    surfaceColor: greenSwatch.shade900,
+    surfaceColor: greenSwatch.shade800,
     dividerColor: greenSwatch.shade600,
     iconColor: primaryColor,
     navLabelColor: greenSwatch.shade100,
@@ -73,7 +73,7 @@ ThemeData _buildTheme({
 }) {
   final textTheme = TextTheme(
     bodyLarge: TextStyle(
-      fontSize: fontSize + 2,
+      fontSize: fontSize,
       fontWeight: FontWeight.w400,
       color: baseColor,
     ),
@@ -83,17 +83,17 @@ ThemeData _buildTheme({
       color: baseColor,
     ),
     bodySmall: TextStyle(
-      fontSize: fontSize - 2,
+      fontSize: fontSize,
       fontWeight: FontWeight.w400,
       color: baseColor,
     ),
     labelLarge: TextStyle(
-      fontSize: fontSize + 4,
+      fontSize: fontSize,
       fontWeight: FontWeight.w500,
       color: baseColor,
     ),
     labelMedium: TextStyle(
-      fontSize: fontSize + 2,
+      fontSize: fontSize,
       fontWeight: FontWeight.w500,
       color: baseColor,
     ),
@@ -103,17 +103,17 @@ ThemeData _buildTheme({
       color: baseColor,
     ),
     headlineLarge: TextStyle(
-      fontSize: fontSize + 12,
+      fontSize: fontSize,
       fontWeight: FontWeight.w600,
       color: baseColor,
     ),
     headlineMedium: TextStyle(
-      fontSize: fontSize + 8,
+      fontSize: fontSize,
       fontWeight: FontWeight.w600,
       color: baseColor,
     ),
     headlineSmall: TextStyle(
-      fontSize: fontSize + 4,
+      fontSize: fontSize,
       fontWeight: FontWeight.w600,
       color: baseColor,
     ),
@@ -121,6 +121,7 @@ ThemeData _buildTheme({
 
   return ThemeData(
     useMaterial3: false,
+
     brightness: brightness,
     fontFamily: fontFamily,
     primaryColor: primaryColor,
@@ -149,7 +150,7 @@ ThemeData _buildTheme({
       titleTextStyle: TextStyle(
         fontFamily: fontFamily,
         color: baseColor,
-        fontSize: fontSize + 2,
+        fontSize: fontSize,
         fontWeight: FontWeight.w700,
       ),
       systemOverlayStyle: SystemUiOverlayStyle(
@@ -229,6 +230,19 @@ ThemeData _buildTheme({
           ),
         ),
       ),
+    ),
+    tooltipTheme: TooltipThemeData(
+      textStyle: TextStyle(
+        fontSize: fontSize,
+        fontFamily: fontFamily,
+        fontWeight: FontWeight.w500,
+        color: baseColor,
+      ),
+      decoration: BoxDecoration(
+        color: surfaceColor,
+        borderRadius: BorderRadius.circular(8),
+      ),
+      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
     ),
     expansionTileTheme: ExpansionTileThemeData(
       textColor: primaryColor,

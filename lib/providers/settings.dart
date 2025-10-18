@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/services.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../core/enum/constants.dart';
@@ -73,7 +72,7 @@ class SettingsNotifier extends _$SettingsNotifier {
     }
   }
 
-  Future<Language> changeLanguage(Language language) async {
+  Future<void> changeLanguage(Language language) async {
     state = state.copyWith(isLoading: true);
     try {
       state = state.copyWith(language: language);
@@ -83,10 +82,8 @@ class SettingsNotifier extends _$SettingsNotifier {
         value: language.toStr,
       );
       state = state.copyWith(isLoading: false);
-      return language;
     } catch (e) {
       state = state.copyWith(isLoading: false);
-      rethrow;
     }
   }
 

@@ -24,9 +24,18 @@ enum Language {
   static getLanguageName(Language language) {
     switch (language) {
       case Language.arabic:
-        return LocaleKeys.languages.tr();
+        return LocaleKeys.arabic.tr();
       case Language.english:
-        return LocaleKeys.languages.tr();
+        return LocaleKeys.english.tr();
+    }
+  }
+
+  static getOppositeLanguageName(Language language) {
+    switch (language) {
+      case Language.arabic:
+        return LocaleKeys.english.tr();
+      case Language.english:
+        return LocaleKeys.arabic.tr();
     }
   }
 

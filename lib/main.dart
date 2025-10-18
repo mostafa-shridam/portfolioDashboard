@@ -76,10 +76,10 @@ class MyApp extends ConsumerWidget {
             localizationsDelegates: context.localizationDelegates,
             supportedLocales: context.supportedLocales,
             locale: context.locale,
-            theme: getLightTheme(fontFamily.toStr, fontSize?.size ?? 14),
-            darkTheme: getDarkTheme(fontFamily.toStr, fontSize?.size ?? 14),
+            theme: getLightTheme(fontFamily.toStr, fontSize?.size ?? 1),
+            darkTheme: getDarkTheme(fontFamily.toStr, fontSize?.size ?? 1),
             themeMode: themeMode.flutterThemeMode,
-            initialRoute: isLogin ? HomePage.routeName : AuthPage.routeName,
+            initialRoute: !isLogin ? HomePage.routeName : AuthPage.routeName,
             onGenerateRoute: onGenerateRoute,
             builder: (context, child) {
               final mediaQueryData = MediaQuery.of(context);
@@ -102,7 +102,7 @@ class MyApp extends ConsumerWidget {
                 ).value,
                 child: MediaQuery(
                   data: mediaQueryData.copyWith(
-                    textScaler: TextScaler.linear(fontSize?.size ?? 14),
+                    textScaler: TextScaler.linear(fontSize?.size ?? 1),
                   ),
                   child: DecoratedBox(
                     decoration: BoxDecoration(

@@ -11,11 +11,14 @@ class AuthPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isWeb = ResponsiveBreakpoints.of(context).isDesktop;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [greenSwatch.shade700, greenSwatch.shade900],
+            colors: isDark
+                ? [greenSwatch.shade900, greenSwatch.shade700]
+                : [greenSwatch.shade400, greenSwatch.shade100],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),

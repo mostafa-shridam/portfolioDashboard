@@ -33,13 +33,13 @@ class CustomButton extends StatelessWidget {
         ),
         child: Center(
           child: isLoading
-              ? Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [CustomProgress()],
+              ? Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: CustomProgress(),
                 )
               : Text(
                   text,
-                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     color: textColor ?? Colors.white,
                     fontWeight: FontWeight.bold,
                   ),

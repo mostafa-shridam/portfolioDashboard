@@ -45,35 +45,33 @@ class Auth extends _$Auth with ScaffoldMessengerMixin {
   }
 
   Future<void> signInWithGoogle(BuildContext context) async {
-    if (kIsWeb) {
-      await sginInWithGoogleWeb(context);
-      return;
-    }
-
     // Check if context is still mounted before starting
     if (!context.mounted) return;
 
     state = state.copyWith(isLoading: true);
     try {
+      UserCredential userCredential;
+      GoogleAuthProvider googleProvider = GoogleAuthProvider();
       log('start authenticate');
-      final GoogleSignInAccount googleUser = await googleSignIn.authenticate();
-
-      // Check if both provider and context are still mounted after async operation
-      if (!ref.mounted || !context.mounted) {
+      if (kIsWeb) {
+        userCredential = await _auth.signInWithPopup(googleProvider);
+        if (!ref.mounted || !context.mounted) {
+          state = state.copyWith(isLoading: false);
+        }
         state = state.copyWith(isLoading: false);
-        return;
+      } else {
+        final GoogleSignInAccount googleUser = await googleSignIn
+            .authenticate();
+
+        final GoogleSignInAuthentication googleSignInAuthentication =
+            googleUser.authentication;
+
+        final credential = GoogleAuthProvider.credential(
+          idToken: googleSignInAuthentication.idToken,
+        );
+
+        userCredential = await _auth.signInWithCredential(credential);
       }
-
-      final GoogleSignInAuthentication googleSignInAuthentication =
-          googleUser.authentication;
-
-      final credential = GoogleAuthProvider.credential(
-        idToken: googleSignInAuthentication.idToken,
-      );
-
-      final UserCredential userCredential = await _auth.signInWithCredential(
-        credential,
-      );
 
       // Check if provider is still mounted after async operation
       if (!ref.mounted) return;
@@ -91,8 +89,18 @@ class Auth extends _$Auth with ScaffoldMessengerMixin {
           .collection(Constants.portfolioUser.name)
           .doc(user?.uid)
           .get();
+      final UserModel userModel = UserModel(
+        id: user?.uid ?? '',
+        email: user?.email ?? '',
+        profileImage: user?.photoURL ?? '',
+        name: user?.displayName ?? '',
+        bio: '',
+        phone: user?.phoneNumber ?? '',
+        provider: 'google',
+        authType: kIsWeb ? 'web' : 'mobile',
+      );
 
-      if (getUserData.exists) {
+      if (getUserData.exists && getUserData.data() == userModel.toJson()) {
         log('user data exists');
         final userModel = UserModel.fromJson(getUserData.data() ?? {});
         await _saveUser.saveUserData(jsonEncode(userModel.toJson()));
@@ -110,14 +118,7 @@ class Auth extends _$Auth with ScaffoldMessengerMixin {
         }
       } else {
         log('start add user to firestore');
-        final UserModel userModel = UserModel(
-          id: user?.uid ?? '',
-          email: user?.email ?? '',
-          profileImage: user?.photoURL ?? '',
-          name: user?.displayName ?? '',
-          bio: '',
-          phone: user?.phoneNumber ?? '',
-        );
+
         if (userModel.id != null) {
           await _firestore
               .collection(Constants.portfolioUser.name)
@@ -141,8 +142,6 @@ class Auth extends _$Auth with ScaffoldMessengerMixin {
           Navigator.pushReplacementNamed(context, HomePage.routeName);
         }
       }
-
-      log('user added to firestore');
     } on GoogleSignInException catch (e) {
       log('on FirebaseAuthException catch ($e)');
       if (context.mounted) {
@@ -166,134 +165,6 @@ class Auth extends _$Auth with ScaffoldMessengerMixin {
     } finally {
       if (ref.mounted) {
         state = state.copyWith(isLoading: false);
-      }
-    }
-  }
-
-  Future<void> sginInWithGoogleWeb(BuildContext context) async {
-    // Check if context is still mounted before starting
-    if (!context.mounted) return;
-
-    state = state.copyWith(isLoading: true);
-    try {
-      final googleProvider = GoogleAuthProvider();
-      final UserCredential userCredential = await _auth.signInWithPopup(
-        googleProvider,
-      );
-
-      // Check if both provider and context are still mounted after async operation
-      if (!ref.mounted || !context.mounted) {
-        state = state.copyWith(isLoading: false);
-        return;
-      }
-
-      if (userCredential.user == null) {
-        log('user is null');
-        state = state.copyWith(isLoading: false);
-        return;
-      }
-
-      final User? user = userCredential.user;
-      final getUserData = await _firestore
-          .collection(Constants.portfolioUser.name)
-          .doc(user?.uid)
-          .get();
-
-      // Check if both provider and context are still mounted after async operation
-      if (!ref.mounted || !context.mounted) {
-        state = state.copyWith(isLoading: false);
-        return;
-      }
-
-      if (getUserData.exists) {
-        log('user data exists');
-        final userModel = UserModel.fromJson(getUserData.data() ?? {});
-        await _saveUser.saveUserData(jsonEncode(userModel.toJson()));
-
-        // Check if both provider and context are still mounted after async operation
-        if (!ref.mounted || !context.mounted) {
-          state = state.copyWith(isLoading: false);
-          return;
-        }
-
-        state = state.copyWith(isLoading: false, user: userModel);
-        LocalStorage.instance.saveData(
-          key: Constants.loginKey.name,
-          value: true,
-        );
-        if (context.mounted) {
-          Navigator.pushReplacementNamed(context, HomePage.routeName);
-        }
-      } else {
-        log('start add user to firestore');
-        final userModel = UserModel(
-          id: user?.uid ?? '',
-          email: user?.email ?? '',
-          profileImage: user?.photoURL ?? '',
-          name: user?.displayName ?? '',
-          bio: '',
-          phone: user?.phoneNumber ?? '',
-        );
-        if (userModel.id != null) {
-          await _firestore
-              .collection(Constants.portfolioUser.name)
-              .doc(userModel.id)
-              .set(userModel.toJson());
-
-          // Check if both provider and context are still mounted after async operation
-          if (!ref.mounted || !context.mounted) {
-            state = state.copyWith(isLoading: false);
-            return;
-          }
-        }
-        await _saveUser.saveUserData(jsonEncode(userModel.toJson()));
-
-        // Check if both provider and context are still mounted after async operation
-        if (!ref.mounted || !context.mounted) {
-          state = state.copyWith(isLoading: false);
-          return;
-        }
-
-        state = state.copyWith(isLoading: false, user: userModel);
-        LocalStorage.instance.saveData(
-          key: Constants.loginKey.name,
-          value: true,
-        );
-        if (context.mounted) {
-          Navigator.pushReplacementNamed(context, HomePage.routeName);
-        }
-      }
-      log('user added to firestore');
-    } on FirebaseAuthException catch (e) {
-      // Handle specific Firebase Auth exceptions
-      if (e.code == 'popup-closed-by-user') {
-        // User closed the popup - this is normal behavior, don't show error
-        log('User closed the popup');
-        if (ref.mounted) {
-          state = state.copyWith(isLoading: false);
-        }
-        return;
-      } else {
-        // Other Firebase Auth errors
-        log('Firebase Auth error: ${e.code} - ${e.message}');
-        if (ref.mounted) {
-          state = state.copyWith(isLoading: false);
-        }
-        if (context.mounted) {
-          showSnackBar(
-            context: context,
-            message: e.message ?? 'Authentication failed',
-          );
-        }
-      }
-    } catch (e) {
-      // Handle other exceptions
-      log('catch ($e)');
-      if (ref.mounted) {
-        state = state.copyWith(isLoading: false);
-      }
-      if (context.mounted) {
-        showSnackBar(context: context, message: e.toString());
       }
     }
   }
@@ -350,6 +221,28 @@ class Auth extends _$Auth with ScaffoldMessengerMixin {
       log('Error signing out: $e');
       // Check if provider is still mounted before updating state
       if (!ref.mounted) return;
+      state = state.copyWith(isLoading: false);
+    }
+  }
+
+  Future<void> updateUserData(UserModel userModel) async {
+    state = state.copyWith(isLoading: true);
+    try {
+      if (_auth.currentUser?.uid == null) {
+        state = state.copyWith(isLoading: false);
+        return;
+      }
+      
+      if (!ref.mounted) return;
+      await _saveUser.saveUserData(jsonEncode(userModel.toJson()));
+      if (!ref.mounted) return;
+      await _firestore
+          .collection(Constants.portfolioUser.name)
+          .doc(_auth.currentUser?.uid)
+          .update(userModel.toJson());
+      state = state.copyWith(isLoading: false);
+    } catch (e) {
+      log('Error updating user data: $e');
       state = state.copyWith(isLoading: false);
     }
   }

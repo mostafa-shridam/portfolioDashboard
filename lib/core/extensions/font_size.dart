@@ -1,5 +1,5 @@
 enum FontSizes {
-  small('Small', 1),
+  small('Small', 2),
   medium('Medium', 4),
   large('Large', 6),
   extraLarge('Extra Large', 8.0),

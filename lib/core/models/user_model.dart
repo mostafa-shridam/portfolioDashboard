@@ -5,6 +5,8 @@ class UserModel {
   String? bio;
   String? email;
   String? phone;
+  String? provider;
+  String? authType;
 
   UserModel({
     this.id,
@@ -13,6 +15,8 @@ class UserModel {
     this.bio,
     this.email,
     this.phone,
+    this.provider,
+    this.authType,
   });
   factory UserModel.fromJson(Map<String, dynamic>? json) {
     if (json == null) {
@@ -25,6 +29,8 @@ class UserModel {
       bio: json['bio'],
       email: json['email'],
       phone: json['phone'],
+      provider: json['provider'],
+      authType: json['authType'],
     );
   }
 
@@ -36,6 +42,8 @@ class UserModel {
       'bio': bio,
       'email': email,
       'phone': phone,
+      'provider': provider,
+      'authType': authType,
     };
   }
 }
