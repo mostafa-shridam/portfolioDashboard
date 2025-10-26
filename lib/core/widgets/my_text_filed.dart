@@ -8,7 +8,7 @@ class MyTextField extends StatelessWidget {
   final String? hintText;
   final String? helperText;
   final String? errorText;
-  final Widget? prefixIcon;
+  final IconData? prefixIcon;
   final Widget? suffixIcon;
   final bool obscureText;
   final TextInputType? keyboardType;
@@ -158,7 +158,7 @@ class MyTextField extends StatelessWidget {
         hintText: hintText,
         helperText: helperText,
         errorText: errorText,
-        prefixIcon: prefixIcon,
+        prefixIcon: Icon(prefixIcon, size: 18),
         suffixIcon: _buildSuffixIcon(context),
         filled: filled,
         fillColor: fillColor ?? (isDark ? greenSwatch.shade800 : whiteColor),

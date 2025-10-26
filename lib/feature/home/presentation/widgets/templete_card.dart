@@ -208,7 +208,7 @@ class _TemplateCardState extends State<TemplateCard>
                       // Title
                       Text(
                         widget.title,
-                        style: textTheme.bodyMedium,
+                        style: textTheme.bodyMedium?.copyWith(fontSize: 10),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -218,9 +218,9 @@ class _TemplateCardState extends State<TemplateCard>
                         widget.description,
                         style: textTheme.bodySmall?.copyWith(
                           color: widget.isDark
-                              ? Colors.grey[400]
-                              : Colors.grey[600],
-                          fontSize: 3,
+                              ? Colors.white70
+                              : Colors.black54,
+                          fontSize: 8,
                         ),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
@@ -248,7 +248,7 @@ class _TemplateCardState extends State<TemplateCard>
                               feature,
                               style: Theme.of(
                                 context,
-                              ).textTheme.bodySmall?.copyWith(fontSize: 2.6),
+                              ).textTheme.bodySmall?.copyWith(fontSize: 7),
                             ),
                           );
                         }).toList(),

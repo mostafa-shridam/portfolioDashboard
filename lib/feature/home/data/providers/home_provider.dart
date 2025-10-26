@@ -51,6 +51,7 @@ class HomeProvider extends _$HomeProvider {
     state = state.copyWith(
       selectedTemplateIndex: templateIndex,
       colorCallback: color,
+      
     );
   }
 

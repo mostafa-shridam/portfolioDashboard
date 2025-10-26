@@ -1,22 +1,25 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import '../core/enum/constants.dart';
-import '../core/extensions/font_family.dart';
-import '../core/extensions/font_size.dart';
-import '../core/extensions/language.dart';
-import '../core/extensions/theme_mode.dart';
-import '../core/local_service/local_storage.dart';
-import '../core/theme/style.dart';
+import '../../../../core/enum/constants.dart';
+import '../../../../core/extensions/font_family.dart';
+import '../../../../core/extensions/font_size.dart';
+import '../../../../core/extensions/language.dart';
+import '../../../../core/extensions/theme_mode.dart';
+import '../../../../core/local_service/local_storage.dart';
+import '../../../../core/theme/style.dart';
 
 part 'generated/settings.g.dart';
 
 @Riverpod(keepAlive: true)
 class SettingsNotifier extends _$SettingsNotifier {
   late LocalStorage _box;
+  late ScrollController scrollController;
 
   @override
   SettingsState build() {
     _box = LocalStorage.instance;
+    scrollController = ScrollController();
     state = SettingsState(
       isLoading: false,
       themeMode: Thememode.fromString(
@@ -31,6 +34,7 @@ class SettingsNotifier extends _$SettingsNotifier {
       fontFamily: FontFamily.fromString(
         _box.getData(key: Constants.fontFamily.name) ?? FontFamily.cairo.toStr,
       ),
+      scrollController: scrollController,
     );
     return state;
   }
@@ -121,6 +125,20 @@ class SettingsNotifier extends _$SettingsNotifier {
       ),
     );
   }
+
+  void scrollTo(double index) {
+    state = state.copyWith(isLoading: true);
+    try {
+      scrollController.animateTo(
+        index * 600,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+      state = state.copyWith(isLoading: false);
+    } catch (e) {
+      state = state.copyWith(isLoading: false);
+    }
+  }
 }
 
 class SettingsState {
@@ -130,12 +148,14 @@ class SettingsState {
     this.language,
     this.fontFamily,
     this.isLoading,
+    this.scrollController,
   });
   FontSizes? fontSizes;
   FontFamily? fontFamily;
   Thememode? themeMode;
   Language? language;
   bool? isLoading;
+  ScrollController? scrollController;
 
   SettingsState copyWith({
     FontSizes? fontSizes,
@@ -143,6 +163,7 @@ class SettingsState {
     Thememode? themeMode,
     Language? language,
     bool? isLoading,
+    ScrollController? scrollController,
   }) {
     return SettingsState(
       fontSizes: fontSizes ?? this.fontSizes,
@@ -150,6 +171,7 @@ class SettingsState {
       themeMode: themeMode ?? this.themeMode,
       language: language ?? this.language,
       isLoading: isLoading ?? this.isLoading,
+      scrollController: scrollController ?? this.scrollController,
     );
   }
 }

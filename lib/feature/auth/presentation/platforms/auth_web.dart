@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:userportfolio/core/theme/style.dart';
-import 'package:userportfolio/providers/settings.dart';
+import 'package:userportfolio/feature/settings/data/providers/settings.dart';
 import '../../../../core/extensions/language.dart';
 import '../../../../core/extensions/theme_mode.dart';
 import '../../../../gen/assets.gen.dart';

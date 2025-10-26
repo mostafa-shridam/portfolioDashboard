@@ -28,6 +28,7 @@ class LocalStorage {
   Future<void> deleteData({required String key}) async {
     await _box.delete(key);
   }
+
 }
 
 @riverpod

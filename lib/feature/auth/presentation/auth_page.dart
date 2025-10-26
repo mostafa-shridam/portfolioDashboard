@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_framework/responsive_framework.dart';
@@ -10,7 +11,7 @@ class AuthPage extends ConsumerWidget {
   static const String routeName = '/auth';
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isWeb = ResponsiveBreakpoints.of(context).isDesktop;
+    final isDesktop = ResponsiveBreakpoints.of(context).isDesktop;
     final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       body: Container(
@@ -23,7 +24,7 @@ class AuthPage extends ConsumerWidget {
             end: Alignment.bottomCenter,
           ),
         ),
-        child: isWeb ? const AuthWeb() : const AuthMobile(),
+        child: isDesktop && kIsWeb ? const AuthWeb() : const AuthMobile(),
       ),
     );
   }

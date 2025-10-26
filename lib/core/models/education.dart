@@ -5,8 +5,8 @@ class Education {
   String? degree;
   String? field;
   String? location;
-  DateTime? startDate;
-  DateTime? endDate;
+  String? startDate;
+  String? endDate;
   double? gpa;
   String? description;
   List<String>? achievements;
@@ -33,11 +33,8 @@ class Education {
       degree: json['degree'],
       field: json['field'],
       location: json['location'],
-      startDate: json['start_date'] != null
-          ? DateTime.parse(json['start_date'])
-          : null,
-      endDate:
-          json['end_date'] != null ? DateTime.parse(json['end_date']) : null,
+      startDate: json['start_date'],
+      endDate: json['end_date'],
       gpa: json['gpa']?.toDouble(),
       description: json['description'],
       achievements: json['achievements'] != null
@@ -54,8 +51,8 @@ class Education {
       'degree': degree,
       'field': field,
       'location': location,
-      'start_date': startDate?.toIso8601String(),
-      'end_date': endDate?.toIso8601String(),
+      'start_date': startDate,
+      'end_date': endDate,
       'gpa': gpa,
       'description': description,
       'achievements': achievements,

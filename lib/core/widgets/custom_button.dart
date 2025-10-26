@@ -18,8 +18,9 @@ class CustomButton extends StatelessWidget {
   final Color? color, textColor;
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: isLoading ? null : onPressed,
+      borderRadius: BorderRadius.circular(12),
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
         width: double.infinity,
@@ -33,10 +34,7 @@ class CustomButton extends StatelessWidget {
         ),
         child: Center(
           child: isLoading
-              ? Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: CustomProgress(),
-                )
+              ? CustomProgress()
               : Text(
                   text,
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(

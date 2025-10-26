@@ -20,4 +20,7 @@ enum Constants {
   accessibilitySettings,
   privacySettings,
   displaySettings,
+  aboutData,
+  workExperience,
+  education,
 }

@@ -13,6 +13,7 @@ import '../../../../core/mixins/scaffold_messeneger.dart';
 import '../../../../core/models/user_model.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../../home/data/providers/home_provider.dart';
 import '../../../home/presentation/home_page.dart';
 import '../../presentation/auth_page.dart';
 
@@ -94,13 +95,13 @@ class Auth extends _$Auth with ScaffoldMessengerMixin {
         email: user?.email ?? '',
         profileImage: user?.photoURL ?? '',
         name: user?.displayName ?? '',
-        bio: '',
+        bio: 'Hello, I\'m',
         phone: user?.phoneNumber ?? '',
         provider: 'google',
         authType: kIsWeb ? 'web' : 'mobile',
       );
 
-      if (getUserData.exists && getUserData.data() == userModel.toJson()) {
+      if (getUserData.exists) {
         log('user data exists');
         final userModel = UserModel.fromJson(getUserData.data() ?? {});
         await _saveUser.saveUserData(jsonEncode(userModel.toJson()));
@@ -225,25 +226,53 @@ class Auth extends _$Auth with ScaffoldMessengerMixin {
     }
   }
 
-  Future<void> updateUserData(UserModel userModel) async {
+  void updateSelectedColor() async {
     state = state.copyWith(isLoading: true);
     try {
+      final color =
+          ref.watch(homeProviderProvider).colorCallback?.toARGB32() ?? 0;
+      final userModel = ref.watch(saveUserProvider).getUserData();
+      if (userModel == null) {
+        state = state.copyWith(isLoading: false);
+        return;
+      }
+      userModel.selectedColor = color;
       if (_auth.currentUser?.uid == null) {
         state = state.copyWith(isLoading: false);
         return;
       }
-      
+      await _firestore
+          .collection(Constants.portfolioUser.name)
+          .doc(_auth.currentUser?.uid)
+          .update(userModel.toJson());
+      await _saveUser.updateUserData(userModel);
+    } catch (e) {
+      state = state.copyWith(isLoading: false);
+    }
+  }
+
+  Future<void> updateUserData(UserModel userModel) async {
+    state = state.copyWith(isLoading: true);
+    try {
+      final color =
+          ref.watch(homeProviderProvider).colorCallback?.toARGB32() ?? 0;
+      userModel.selectedColor = color;
+      if (_auth.currentUser?.uid == null) {
+        state = state.copyWith(isLoading: false);
+        return;
+      }
+
       if (!ref.mounted) return;
-      await _saveUser.saveUserData(jsonEncode(userModel.toJson()));
+      await _saveUser.updateUserData(userModel);
       if (!ref.mounted) return;
       await _firestore
           .collection(Constants.portfolioUser.name)
           .doc(_auth.currentUser?.uid)
           .update(userModel.toJson());
-      state = state.copyWith(isLoading: false);
+      state = state.copyWith(isLoading: false, user: userModel);
     } catch (e) {
       log('Error updating user data: $e');
-      state = state.copyWith(isLoading: false);
+      state = state.copyWith(isLoading: false, user: null);
     }
   }
 }

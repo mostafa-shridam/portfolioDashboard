@@ -4,6 +4,7 @@ class Project {
   String? description;
   String? image;
   List<String>? images;
+  
   String? demoUrl;
   String? githubUrl;
   List<String>? technologies;

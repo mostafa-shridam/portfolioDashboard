@@ -1,17 +1,13 @@
+import 'package:flutter/material.dart';
+
 class Skill {
   String? name;
-  String? icon;
+  IconData? icon;
   String? image;
-  int? proficiency;
+  double? proficiency;
   String? category;
 
-  Skill({
-    this.name,
-    this.icon,
-    this.image,
-    this.proficiency,
-    this.category,
-  });
+  Skill({this.name, this.icon, this.image, this.proficiency, this.category});
 
   factory Skill.fromJson(Map<String, dynamic> json) {
     return Skill(

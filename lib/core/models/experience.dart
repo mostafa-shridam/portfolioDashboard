@@ -5,8 +5,8 @@ class Experience {
   String? position;
   String? description;
   String? location;
-  DateTime? startDate;
-  DateTime? endDate;
+  String? startDate;
+  String? endDate;
   bool? isCurrent;
   List<String>? responsibilities;
   List<String>? technologies;
@@ -33,11 +33,8 @@ class Experience {
       position: json['position'],
       description: json['description'],
       location: json['location'],
-      startDate: json['start_date'] != null
-          ? DateTime.parse(json['start_date'])
-          : null,
-      endDate:
-          json['end_date'] != null ? DateTime.parse(json['end_date']) : null,
+      startDate: json['start_date'],
+      endDate: json['end_date'],
       isCurrent: json['is_current'],
       responsibilities: json['responsibilities'] != null
           ? List<String>.from(json['responsibilities'])
@@ -56,8 +53,8 @@ class Experience {
       'position': position,
       'description': description,
       'location': location,
-      'start_date': startDate?.toIso8601String(),
-      'end_date': endDate?.toIso8601String(),
+      'start_date': startDate,
+      'end_date': endDate,
       'is_current': isCurrent,
       'responsibilities': responsibilities,
       'technologies': technologies,

@@ -21,7 +21,7 @@ List<TempleteCard> getTemplateData() {
       title: 'Creative Portfolio',
       description: 'Bold and colorful design for creative professionals',
       icon: Icons.palette,
-      color: successGreen.toARGB32(),
+      color: const Color(0xFF7F1E9D).toARGB32(),
       badge: 'Trending',
       features: ['Animated', 'Gallery', 'Custom'],
     ),
@@ -59,3 +59,7 @@ List<TempleteCard> getTemplateData() {
     ),
   ];
 }
+
+const supabaseUrl = 'https://zhukfsnlbtcbklkoxwgb.supabase.co';
+const supabaseAPIKey =
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpodWtmc25sYnRjYmtsa294d2diIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2MDgyMTIyNywiZXhwIjoyMDc2Mzk3MjI3fQ.lLKToXtl5KO3jbdsA3kuyRBSrkiotzwTMG9m5sYxTFs';

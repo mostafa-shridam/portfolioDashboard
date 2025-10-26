@@ -6,7 +6,7 @@ class Course {
   String? instructor;
   String? platform;
   String? certificateUrl;
-  DateTime? completedDate;
+  String? completedDate;
   List<String>? skills;
   double? rating;
 
@@ -32,9 +32,7 @@ class Course {
       instructor: json['instructor'],
       platform: json['platform'],
       certificateUrl: json['certificate_url'],
-      completedDate: json['completed_date'] != null
-          ? DateTime.parse(json['completed_date'])
-          : null,
+      completedDate: json['completed_date'],
       skills: json['skills'] != null ? List<String>.from(json['skills']) : null,
       rating: json['rating']?.toDouble(),
     );
@@ -49,7 +47,7 @@ class Course {
       'instructor': instructor,
       'platform': platform,
       'certificate_url': certificateUrl,
-      'completed_date': completedDate?.toIso8601String(),
+      'completed_date': completedDate,
       'skills': skills,
       'rating': rating,
     };

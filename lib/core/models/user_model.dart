@@ -1,3 +1,5 @@
+import 'social_links_model.dart';
+
 class UserModel {
   String? id;
   String? profileImage;
@@ -7,6 +9,12 @@ class UserModel {
   String? phone;
   String? provider;
   String? authType;
+  String? jobTitle;
+  String? location;
+  String? resumeUrl;
+  int? selectedColor;
+  List<String>? languages;
+  SocialLinksModel? socialLinks;
 
   UserModel({
     this.id,
@@ -17,6 +25,12 @@ class UserModel {
     this.phone,
     this.provider,
     this.authType,
+    this.socialLinks,
+    this.jobTitle,
+    this.location,
+    this.resumeUrl,
+    this.languages,
+    this.selectedColor,
   });
   factory UserModel.fromJson(Map<String, dynamic>? json) {
     if (json == null) {
@@ -31,10 +45,31 @@ class UserModel {
       phone: json['phone'],
       provider: json['provider'],
       authType: json['authType'],
+      jobTitle: json['jobTitle'],
+      location: json['location'],
+      resumeUrl: json['resumeUrl'],
+      selectedColor: json['selectedColor'],
+      languages: json['languages'] != null
+          ? List<String>.from(json['languages'])
+          : null,
+      socialLinks: json['socialLinks'] != null
+          ? SocialLinksModel.fromJson(json['socialLinks'])
+          : SocialLinksModel.fromJson({
+              'githubUrl': json['githubUrl'],
+              'linkedinUrl': json['linkedinUrl'],
+              'facebookUrl': json['facebookUrl'],
+              'twitterUrl': json['twitterUrl'],
+              'instagramUrl': json['instagramUrl'],
+              'websiteUrl': json['websiteUrl'],
+              'youtubeUrl': json['youtubeUrl'],
+              'behanceUrl': json['behanceUrl'],
+              'dribbbleUrl': json['dribbbleUrl'],
+            }),
     );
   }
 
   Map<String, dynamic> toJson() {
+    final socialLinksJson = socialLinks?.toJson() ?? {};
     return {
       'id': id,
       'profileImage': profileImage,
@@ -44,6 +79,14 @@ class UserModel {
       'phone': phone,
       'provider': provider,
       'authType': authType,
+      'jobTitle': jobTitle,
+      'location': location,
+      'resumeUrl': resumeUrl,
+      'languages': languages,
+      'selectedColor': selectedColor,
+      'socialLinks': socialLinksJson,
+      // Keep backward compatibility
+      ...socialLinksJson,
     };
   }
 }

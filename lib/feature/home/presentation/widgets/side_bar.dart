@@ -3,21 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:userportfolio/core/extensions/language.dart';
 import 'package:userportfolio/feature/auth/data/providers/auth.dart';
-import 'package:userportfolio/providers/settings.dart';
+import 'package:userportfolio/feature/settings/data/providers/settings.dart';
 
 import '../../../../core/extensions/theme_mode.dart';
 import '../../../../core/models/user_model.dart';
 import '../../../../core/theme/style.dart';
 import '../../data/providers/home_provider.dart';
+import 'about_widget.dart';
 import 'design_widget.dart';
 import 'profile_widget.dart';
 import 'toolbar_item.dart';
 
 class SideBar extends ConsumerStatefulWidget {
-  const SideBar({
-    super.key,
-    required this.userData,
-  });
+  const SideBar({super.key, required this.userData});
   final UserModel userData;
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _SideBarState();
@@ -77,13 +75,22 @@ class _SideBarState extends ConsumerState<SideBar> {
   }
 
   List<String> getMenuTitles() {
-    return ['Design', 'Profile', 'Projects', 'Skills', 'Courses', 'Experience'];
+    return [
+      'Design',
+      'Profile',
+      'About',
+      'Projects',
+      'Skills',
+      'Courses',
+      'Experience',
+    ];
   }
 
   List<IconData> getMenuIcons() {
     return [
       Icons.design_services,
       Icons.person,
+      Icons.info,
       Icons.folder,
       Icons.build,
       Icons.school,
@@ -226,6 +233,12 @@ class _SideBarState extends ConsumerState<SideBar> {
                         Expanded(child: DesignWidget()),
                       ] else if (selectedIndex == 1) ...[
                         Expanded(child: ProfileWidget()),
+                      ] else if (selectedIndex == 2) ...[
+                        Expanded(
+                          child: AboutWidget(
+                            selectedColor: widget.userData.selectedColor ?? 0,
+                          ),
+                        ),
                       ] else ...[
                         Expanded(
                           child: Center(

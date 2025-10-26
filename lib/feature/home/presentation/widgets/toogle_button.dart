@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/extensions/language.dart';
 import '../../../../core/theme/style.dart';
-import '../../../../providers/settings.dart';
+import '../../../settings/data/providers/settings.dart';
 import '../../data/providers/home_provider.dart';
 
 class ToogleButton extends ConsumerWidget {

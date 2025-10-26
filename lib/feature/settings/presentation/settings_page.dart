@@ -6,7 +6,7 @@ import '../../../core/extensions/theme_mode.dart';
 import '../../../core/mixins/alert_utils.dart';
 import '../../../core/widgets/custom_button.dart';
 import '../../../generated/locale_keys.g.dart';
-import '../../../providers/settings.dart';
+import '../data/providers/settings.dart';
 import '../../auth/data/providers/auth.dart';
 
 class SettingsPage extends ConsumerWidget with AlertUtils {

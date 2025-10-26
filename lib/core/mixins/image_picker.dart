@@ -8,4 +8,10 @@ mixin ImagePickerMixin {
     );
     return image;
   }
+
+  Future<List<XFile>> pickImagesFromGallery() async {
+    final ImagePicker picker = ImagePicker();
+    final List<XFile> images = await picker.pickMultiImage(limit: 5);
+    return images;
+  }
 }

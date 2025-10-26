@@ -103,6 +103,7 @@ mixin AlertUtils {
     showDialog(
       barrierDismissible: true,
       barrierColor: Colors.black.withAlpha(120),
+
       context: context,
       builder: (context) => Center(
         child: Container(
@@ -385,6 +386,7 @@ mixin AlertUtils {
         );
     }
   }
+  
 }
 
 // Alert configuration class

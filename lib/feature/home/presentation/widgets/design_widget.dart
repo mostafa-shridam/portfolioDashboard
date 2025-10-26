@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/constants.dart';
 import '../../../../core/theme/style.dart';
+import '../../../auth/data/providers/auth.dart';
 import '../../data/providers/home_provider.dart';
-import 'teplete_card.dart';
+import 'templete_card.dart';
 
 class DesignWidget extends ConsumerWidget {
   const DesignWidget({super.key});
@@ -51,7 +52,7 @@ class DesignWidget extends ConsumerWidget {
                     Text(
                       'Choose a template for your portfolio website',
                       style: textTheme.bodyMedium?.copyWith(
-                        color: isDark ? Colors.grey[400] : Colors.grey[600],
+                        color: isDark ? Colors.white70 : Colors.black54,
                       ),
                     ),
                   ],
@@ -88,6 +89,8 @@ class DesignWidget extends ConsumerWidget {
                     ref
                         .read(homeProviderProvider.notifier)
                         .selectTemplate(index, Color(template.color));
+
+                    ref.read(authProvider.notifier).updateSelectedColor();
                   },
                 );
               },

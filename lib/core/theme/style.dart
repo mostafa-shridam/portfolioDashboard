@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../extensions/font_family.dart';
+
 const primaryColor = Color(0XFF1B5E37);
 const greenColor = Color(0xFF05D510);
 const Color whiteColor = Colors.white;
@@ -12,18 +14,18 @@ const Color infoColor = Color(0xFF007AFF);
 
 const MaterialColor greenSwatch = MaterialColor(0XFF000000, {
   50: Color(0xFFF3FAF6), // خلفية فاتحة جدًا فيها لمسة خضار
-  100: Color(0xFFE6F4EC),
-  200: Color(0xFFCDE8D8),
-  300: Color(0xFFAEDCC1),
-  400: Color(0xFF8ED0A9),
-  500: Color(0xFF1B653C), // اللون الأساسي
-  600: Color(0xFF175232),
-  700: Color(0xFF134028),
-  800: Color(0xFF0F2E1F),
-  900: Color(0xFF0A1F16),
+  100: Color(0xFFF0F0F0),
+  200: Color(0xFFD9E9CF),
+  300: Color(0xFFB6CEB4),
+  400: Color(0xFF96A78D),
+  500: Color(0xFF27391C), // اللون الأساسي
+  600: Color(0xFF191919),
+  700: Color(0xFF191A19),
+  800: Color(0xFF161616),
+  900: Color(0xFF0F0E0E),
 });
 
-ThemeData getLightTheme(String fontFamily, double fontSize) {
+ThemeData getLightTheme(String fontFamily) {
   return _buildTheme(
     brightness: Brightness.light,
     fontFamily: fontFamily,
@@ -36,11 +38,10 @@ ThemeData getLightTheme(String fontFamily, double fontSize) {
     navUnselectedColor: greenSwatch.shade600,
     appBarColor: whiteColor,
     overlayBrightness: Brightness.dark,
-    fontSize: fontSize,
   );
 }
 
-ThemeData getDarkTheme(String fontFamily, double fontSize) {
+ThemeData getDarkTheme(String fontFamily) {
   return _buildTheme(
     brightness: Brightness.dark,
     fontFamily: fontFamily,
@@ -53,7 +54,6 @@ ThemeData getDarkTheme(String fontFamily, double fontSize) {
     navUnselectedColor: greenSwatch.shade300,
     appBarColor: greenSwatch.shade900,
     overlayBrightness: Brightness.light,
-    fontSize: fontSize,
   );
 }
 
@@ -69,59 +69,88 @@ ThemeData _buildTheme({
   required Color navUnselectedColor,
   required Color appBarColor,
   required Brightness overlayBrightness,
-  required double fontSize,
 }) {
+  final alpha = fontFamily == FontFamily.cairo.toStr ? -3.0 : 0.0;
   final textTheme = TextTheme(
-    bodyLarge: TextStyle(
-      fontSize: fontSize,
-      fontWeight: FontWeight.w400,
+    displayLarge: TextStyle(
       color: baseColor,
+      fontSize: 32 + alpha,
+      fontWeight: FontWeight.w600,
+    ),
+    displayMedium: TextStyle(
+      color: baseColor,
+      fontSize: 28 + alpha,
+      fontWeight: FontWeight.w600,
+    ),
+    displaySmall: TextStyle(
+      color: baseColor,
+      fontSize: 24 + alpha,
+      fontWeight: FontWeight.w600,
+    ),
+    titleLarge: TextStyle(
+      color: baseColor,
+      fontSize: 20 + alpha,
+      fontWeight: FontWeight.w600,
+    ),
+    titleMedium: TextStyle(
+      color: baseColor,
+      fontSize: 18 + alpha,
+      fontWeight: FontWeight.w600,
+    ),
+    titleSmall: TextStyle(
+      color: baseColor,
+      fontSize: 16 + alpha,
+      fontWeight: FontWeight.w600,
+    ),
+    bodyLarge: TextStyle(
+      color: baseColor,
+      fontSize: 18 + alpha,
+      fontWeight: FontWeight.w400,
     ),
     bodyMedium: TextStyle(
-      fontSize: fontSize,
-      fontWeight: FontWeight.w400,
       color: baseColor,
+      fontSize: 16 + alpha,
+      fontWeight: FontWeight.w400,
     ),
     bodySmall: TextStyle(
-      fontSize: fontSize,
-      fontWeight: FontWeight.w400,
       color: baseColor,
+      fontSize: 14 + alpha,
+      fontWeight: FontWeight.w400,
     ),
     labelLarge: TextStyle(
-      fontSize: fontSize,
-      fontWeight: FontWeight.w500,
       color: baseColor,
+      fontSize: 20 + alpha,
+      fontWeight: FontWeight.w500,
     ),
     labelMedium: TextStyle(
-      fontSize: fontSize,
-      fontWeight: FontWeight.w500,
       color: baseColor,
+      fontSize: 18 + alpha,
+      fontWeight: FontWeight.w500,
     ),
     labelSmall: TextStyle(
-      fontSize: fontSize,
-      fontWeight: FontWeight.w500,
       color: baseColor,
+      fontSize: 16 + alpha,
+      fontWeight: FontWeight.w500,
     ),
     headlineLarge: TextStyle(
-      fontSize: fontSize,
-      fontWeight: FontWeight.w600,
       color: baseColor,
+      fontSize: 30 + alpha,
+      fontWeight: FontWeight.w600,
     ),
     headlineMedium: TextStyle(
-      fontSize: fontSize,
-      fontWeight: FontWeight.w600,
       color: baseColor,
+      fontSize: 26 + alpha,
+      fontWeight: FontWeight.w600,
     ),
     headlineSmall: TextStyle(
-      fontSize: fontSize,
-      fontWeight: FontWeight.w600,
       color: baseColor,
+      fontSize: 22 + alpha,
+      fontWeight: FontWeight.w600,
     ),
   );
 
   return ThemeData(
-    useMaterial3: false,
-
+    useMaterial3: true,
     brightness: brightness,
     fontFamily: fontFamily,
     primaryColor: primaryColor,
@@ -150,7 +179,7 @@ ThemeData _buildTheme({
       titleTextStyle: TextStyle(
         fontFamily: fontFamily,
         color: baseColor,
-        fontSize: fontSize,
+        fontSize: 20 + alpha,
         fontWeight: FontWeight.w700,
       ),
       systemOverlayStyle: SystemUiOverlayStyle(
@@ -169,13 +198,13 @@ ThemeData _buildTheme({
       elevation: 1,
       selectedLabelStyle: TextStyle(
         fontFamily: fontFamily,
-        fontSize: fontSize + 2,
+        fontSize: 18 + alpha,
         fontWeight: FontWeight.w500,
         color: navLabelColor,
       ),
       unselectedLabelStyle: TextStyle(
         fontFamily: fontFamily,
-        fontSize: fontSize,
+        fontSize: 18 + alpha,
         fontWeight: FontWeight.w500,
         color: navUnselectedColor,
       ),
@@ -192,7 +221,7 @@ ThemeData _buildTheme({
         backgroundColor: primaryColor,
         foregroundColor: whiteColor,
         textStyle: TextStyle(
-          fontSize: fontSize,
+          fontSize: 18 + alpha,
           fontWeight: FontWeight.w500,
           fontFamily: fontFamily,
         ),
@@ -214,7 +243,7 @@ ThemeData _buildTheme({
         borderRadius: BorderRadius.circular(8),
       ),
       labelStyle: TextStyle(
-        fontSize: fontSize,
+        fontSize: 18 + alpha,
         fontFamily: fontFamily,
         color: baseColor,
       ),
@@ -224,7 +253,7 @@ ThemeData _buildTheme({
         foregroundColor: WidgetStateProperty.all<Color>(primaryColor),
         textStyle: WidgetStateProperty.all<TextStyle>(
           TextStyle(
-            fontSize: fontSize,
+            fontSize: 18 + alpha,
             fontFamily: fontFamily,
             fontWeight: FontWeight.w500,
           ),
@@ -233,7 +262,7 @@ ThemeData _buildTheme({
     ),
     tooltipTheme: TooltipThemeData(
       textStyle: TextStyle(
-        fontSize: fontSize,
+        fontSize: 18 + alpha,
         fontFamily: fontFamily,
         fontWeight: FontWeight.w500,
         color: baseColor,
@@ -252,17 +281,17 @@ ThemeData _buildTheme({
     ),
     datePickerTheme: DatePickerThemeData(
       weekdayStyle: TextStyle(
-        fontSize: fontSize + 2,
+        fontSize: 18 + alpha + 2,
         fontWeight: FontWeight.w500,
         color: baseColor,
       ),
       dayStyle: TextStyle(
-        fontSize: fontSize + 2,
+        fontSize: 18 + alpha + 2,
         fontWeight: FontWeight.w500,
         color: baseColor,
       ),
       yearStyle: TextStyle(
-        fontSize: fontSize + 2,
+        fontSize: 18 + alpha + 2,
         fontWeight: FontWeight.w500,
         color: baseColor,
       ),

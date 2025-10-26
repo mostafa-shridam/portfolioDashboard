@@ -21,7 +21,8 @@ class ToolbarItem extends StatelessWidget {
       onTap: onTap,
       child: Container(
         height: 50,
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        width: 66,
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
         margin: const EdgeInsets.only(top: 8, left: 4, right: 4),
         decoration: BoxDecoration(
           color: isDark ? greenSwatch.shade600 : greenSwatch.shade200,
@@ -38,7 +39,7 @@ class ToolbarItem extends StatelessWidget {
             colors: isSelected
                 ? [
                     isDark ? greenSwatch.shade500 : greenSwatch.shade900,
-                    isDark ? greenSwatch.shade200 : greenSwatch.shade500,
+                    isDark ? greenSwatch.shade200 : greenSwatch.shade400,
                   ]
                 : [
                     isDark ? greenSwatch.shade900 : greenSwatch.shade500,
@@ -65,7 +66,7 @@ class ToolbarItem extends StatelessWidget {
               Text(
                 title,
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  fontSize: 2.2,
+                  fontSize: 6.7,
                   fontWeight: FontWeight.bold,
                   color: isSelected
                       ? (isDark ? greenSwatch.shade800 : greenSwatch.shade50)

@@ -12,6 +12,7 @@ targets:
               'lib/providers/{{file}}.dart': 'lib/providers/generated/{{file}}.g.dart',
               'lib/feature/{{feature}}/data/providers/{{file}}.dart': 'lib/feature/{{feature}}/data/providers/generated/{{file}}.g.dart',
               'lib/core/remote_service/{{file}}.dart': 'lib/core/remote_service/generated/{{file}}.g.dart',
+              'lib/core/services/{{file}}.dart': 'lib/core/services/generated/{{file}}.g.dart',
             }
       riverpod_generator:
         options:

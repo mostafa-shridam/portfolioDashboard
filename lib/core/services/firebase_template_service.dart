@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../models/draggable_element_model.dart';
 
@@ -20,7 +22,7 @@ class FirebaseTemplateService {
           .doc(element.id)
           .set(element.toJson());
     } catch (e) {
-      print('Error saving element position: $e');
+      log('Error saving element position: $e');
     }
   }
 
@@ -47,7 +49,7 @@ class FirebaseTemplateService {
 
       await batch.commit();
     } catch (e) {
-      print('Error saving multiple elements: $e');
+      log('Error saving multiple elements: $e');
     }
   }
 
@@ -69,7 +71,7 @@ class FirebaseTemplateService {
           .map((doc) => DraggableElementModel.fromJson(doc.data()))
           .toList();
     } catch (e) {
-      print('Error getting template elements: $e');
+      log('Error getting template elements: $e');
       return [];
     }
   }
@@ -109,7 +111,7 @@ class FirebaseTemplateService {
           .doc(elementId)
           .delete();
     } catch (e) {
-      print('Error deleting element: $e');
+      log('Error deleting element: $e');
     }
   }
 
@@ -130,7 +132,7 @@ class FirebaseTemplateService {
             'lastModified': FieldValue.serverTimestamp(),
           }, SetOptions(merge: true));
     } catch (e) {
-      print('Error saving template settings: $e');
+      log('Error saving template settings: $e');
     }
   }
 }
